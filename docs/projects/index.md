@@ -4,6 +4,28 @@ Documentacao tecnica detalhada dos meus projetos, cobrindo arquitetura, decisoes
 
 ---
 
+## Business Assistant API
+
+**Minimal API .NET 9 para gerenciamento de clientes** | C# + PostgreSQL + Redis
+
+| | |
+|---|---|
+| **Stack** | .NET 9, C# 13, PostgreSQL 16, Redis 7, Docker |
+| **Repo** | [github.com/arbo/business-assistant](https://github.com/arbo/business-assistant) |
+| **Deploy** | GitHub Actions (staging + production) |
+
+**Highlights:**
+- Minimal API .NET 9 com arquitetura flat mantendo SOLID
+- JWT + Refresh Token rotation via Redis com blacklist
+- Hashing SHA256 com SaltObject e ClaimsMiddleware
+- Hierarquia de excecoes mapeada para HTTP status codes
+- FluentValidation integrado com middleware global
+- CI/CD com ambientes separados (staging via develop, prod via tags)
+
+[Ver documentacao completa](/projects/business-assistant/)
+
+---
+
 ## Arbo Solucoes
 
 **Site institucional para consultoria ambiental** | TypeScript + Vite + CSS puro

@@ -60,11 +60,25 @@ export default defineConfig({
           ],
         },
       ],
+      '/projects/business-assistant/': [
+        {
+          text: 'Business Assistant',
+          items: [
+            { text: 'Visao Geral', link: '/projects/business-assistant/' },
+            { text: 'Arquitetura', link: '/projects/business-assistant/arquitetura' },
+            { text: 'Autenticacao e Seguranca', link: '/projects/business-assistant/autenticacao' },
+            { text: 'Modelo de Dados', link: '/projects/business-assistant/modelo-dados' },
+            { text: 'Excecoes e Logging', link: '/projects/business-assistant/excecoes' },
+            { text: 'Deploy e CI/CD', link: '/projects/business-assistant/deploy' },
+          ],
+        },
+      ],
       '/projects/': [
         {
           text: 'Projetos',
           items: [
             { text: 'Todos os Projetos', link: '/projects/' },
+            { text: 'Business Assistant', link: '/projects/business-assistant/' },
             { text: 'Arbo Solucoes', link: '/projects/arbo-solucoes/' },
             { text: 'go-work', link: '/projects/go-work/' },
             { text: 'poke-mcp', link: '/projects/poke-mcp/' },

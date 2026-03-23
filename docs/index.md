@@ -206,6 +206,15 @@ Porto Alegre, RS · Brasil
 
 <div class="cards-container">
 <div class="project-card">
+<div class="project-card__tag">C# · .NET 9 · PostgreSQL · Redis</div>
+
+### [Business Assistant API](/projects/business-assistant/)
+
+Minimal API com JWT + refresh token rotation via Redis, hierarquia de excecoes, FluentValidation e CI/CD com staging/production.
+
+</div>
+
+<div class="project-card">
 <div class="project-card__tag">TypeScript · Vite · CSS</div>
 
 ### [Arbo Solucoes](/projects/arbo-solucoes/)
