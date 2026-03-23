@@ -4,67 +4,66 @@
 
 ## Diagrama de componentes
 
-```
-┌──────────────────────────────────────────────────┐
-│              Business Assistant API               │
-│                                                    │
-│  ┌────────────┐  ┌────────────┐  ┌─────────────┐ │
-│  │  Endpoints  │  │ Middleware  │  │  Validators  │ │
-│  │  (Minimal)  │  │ (Exception │  │  (Fluent)    │ │
-│  │             │  │  + Claims) │  │              │ │
-│  └──────┬─────┘  └─────┬──────┘  └──────┬──────┘ │
-│         │              │                 │         │
-│         ▼              ▼                 ▼         │
-│  ┌─────────────────────────────────────────────┐  │
-│  │              Services (Scoped)               │  │
-│  │  AuthService | CustomerService | TokenService│  │
-│  └──────┬──────────────┬──────────────┬────────┘  │
-│         │              │              │            │
-│         ▼              ▼              ▼            │
-│  ┌───────────┐  ┌───────────┐  ┌──────────────┐  │
-│  │ AppDbCtx  │  │  Redis    │  │ PasswordHash │  │
-│  │ (EF Core) │  │  Service  │  │  (SHA256)    │  │
-│  └─────┬─────┘  └─────┬─────┘  └──────────────┘  │
-└────────┼──────────────┼───────────────────────────┘
-         │              │
-         ▼              ▼
-  ┌─────────────┐  ┌─────────┐
-  │ PostgreSQL  │  │  Redis  │
-  │   (5432)    │  │ (6379)  │
-  └─────────────┘  └─────────┘
+```mermaid
+graph TB
+    subgraph API["Business Assistant API"]
+        direction TB
+        subgraph Presentation["Presentation Layer"]
+            EP["Endpoints<br/>(Minimal API)"]
+            MW["Middleware<br/>(Exception + Claims)"]
+            VL["Validators<br/>(FluentValidation)"]
+        end
+
+        subgraph Business["Business Layer"]
+            AS["AuthService"]
+            CS["CustomerService"]
+            TS["TokenService"]
+        end
+
+        subgraph Infrastructure["Infrastructure Layer"]
+            DB["AppDbContext<br/>(EF Core)"]
+            RS["RedisService"]
+            PH["PasswordHash<br/>(SHA256)"]
+        end
+    end
+
+    EP --> AS
+    EP --> CS
+    MW --> AS
+    VL --> EP
+    AS --> DB
+    AS --> RS
+    AS --> PH
+    CS --> DB
+    TS --> RS
+
+    DB --> PG[(PostgreSQL<br/>5432)]
+    RS --> RD[(Redis<br/>6379)]
+
+    style API fill:transparent,stroke:#5b6ee1,stroke-width:2px
+    style Presentation fill:transparent,stroke:#7c8cf0,stroke-width:1px
+    style Business fill:transparent,stroke:#7c8cf0,stroke-width:1px
+    style Infrastructure fill:transparent,stroke:#7c8cf0,stroke-width:1px
+    style PG fill:#336791,color:#fff,stroke:#336791
+    style RD fill:#dc382d,color:#fff,stroke:#dc382d
 ```
 
 ## Fluxo de uma request
 
-```
-HTTP Request
-  │
-  ▼
-ExceptionMiddleware          ← Captura todas as excecoes
-  │
-  ▼
-Authentication (JWT Bearer)  ← Valida token
-  │
-  ▼
-Authorization                ← Verifica [Authorize]
-  │
-  ▼
-ClaimsMiddleware             ← Extrai claims para IUserClaims
-  │
-  ▼
-RateLimiter                  ← Fixed window (100/min geral, 10/min auth)
-  │
-  ▼
-Endpoint Handler             ← Minimal API route
-  │
-  ▼
-Validator (FluentValidation) ← Valida DTO
-  │
-  ▼
-Service (scoped)             ← Logica de negocio
-  │
-  ▼
-EF Core / Redis              ← Persistencia / cache
+```mermaid
+graph TD
+    REQ["HTTP Request"] --> EXM["ExceptionMiddleware<br/>Captura todas as excecoes"]
+    EXM --> AUTH["Authentication<br/>JWT Bearer - Valida token"]
+    AUTH --> AUTHZ["Authorization<br/>Verifica Authorize"]
+    AUTHZ --> CLM["ClaimsMiddleware<br/>Extrai claims para IUserClaims"]
+    CLM --> RL["RateLimiter<br/>100/min geral · 10/min auth"]
+    RL --> EP["Endpoint Handler<br/>Minimal API route"]
+    EP --> VAL["Validator<br/>FluentValidation - Valida DTO"]
+    VAL --> SVC["Service (scoped)<br/>Logica de negocio"]
+    SVC --> INFRA["EF Core / Redis<br/>Persistencia e cache"]
+
+    style REQ fill:#5b6ee1,color:#fff,stroke:#5b6ee1
+    style INFRA fill:#7c8cf0,color:#fff,stroke:#7c8cf0
 ```
 
 ## Custom Configuration Pattern

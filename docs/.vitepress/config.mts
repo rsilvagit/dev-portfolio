@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 
-export default defineConfig({
+export default withMermaid(defineConfig({
   title: 'Rafael Silva',
   description: 'Portfolio de Desenvolvimento - Projetos, arquitetura e decisoes tecnicas',
   lang: 'pt-BR',
@@ -111,4 +112,4 @@ export default defineConfig({
       next: 'Proximo',
     },
   },
-})
+}))

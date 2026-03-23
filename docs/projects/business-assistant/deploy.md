@@ -4,20 +4,27 @@
 
 ## Ambientes
 
-```
-Development (local)              Staging                      Production
-─────────────────              ──────────                    ──────────
-docker compose up              push develop ──>              tag v* ──>
-       │                       GitHub Actions                GitHub Actions
-       ▼                            │                             │
-┌─────────────┐               Build image                    Build image
-│ docker-     │               Push GHCR                      Push GHCR
-│ compose.yml │               Deploy SSH                     Deploy SSH
-│ (hardcoded) │                    │                             │
-└─────────────┘                    ▼                             ▼
-                              docker-compose               docker-compose
-                              .deploy.yml                  .deploy.yml
-                              + env vars STG_*             + env vars PROD_*
+```mermaid
+graph LR
+    subgraph Dev["Development (local)"]
+        DC["docker compose up<br/>docker-compose.yml<br/>credenciais hardcoded"]
+    end
+
+    subgraph STG["Staging"]
+        S1["push develop"] --> S2["GitHub Actions"]
+        S2 --> S3["Build + Push GHCR"]
+        S3 --> S4["SSH Deploy<br/>docker-compose.deploy.yml<br/>env vars STG_*"]
+    end
+
+    subgraph PRD["Production"]
+        P1["tag v*"] --> P2["GitHub Actions"]
+        P2 --> P3["Build + Push GHCR"]
+        P3 --> P4["SSH Deploy<br/>docker-compose.deploy.yml<br/>env vars PROD_*"]
+    end
+
+    style Dev fill:transparent,stroke:#52b788,stroke-width:2px
+    style STG fill:transparent,stroke:#fbbf24,stroke-width:2px
+    style PRD fill:transparent,stroke:#ef4444,stroke-width:2px
 ```
 
 ## Dockerfile (Multi-stage)

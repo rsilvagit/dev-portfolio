@@ -62,19 +62,21 @@ var claims = new[]
 
 ### Fluxo de rotacao
 
-```
-Cliente                          API                          Redis
-  │  POST /refresh-token          │                             │
-  │──────────────────────────────>│  GET token:refresh:abc...   │
-  │                               │────────────────────────────>│
-  │                               │  (retorna JWT armazenado)   │
-  │                               │                             │
-  │                               │  SET token:blacklist:...    │
-  │                               │  DEL token:refresh:abc...   │
-  │                               │  SET token:refresh:xyz...   │
-  │                               │────────────────────────────>│
-  │  { accessToken, refreshToken }│                             │
-  │<──────────────────────────────│                             │
+```mermaid
+sequenceDiagram
+    participant C as Cliente
+    participant A as API
+    participant R as Redis
+
+    C->>A: POST /refresh-token { refreshToken }
+    A->>R: GET token:refresh:abc...
+    R-->>A: JWT armazenado
+    A->>A: Extrai accountId do JWT
+    A->>R: SET token:blacklist:...
+    A->>R: DEL token:refresh:abc...
+    A->>A: Gera novo JWT + refresh
+    A->>R: SET token:refresh:xyz...
+    A-->>C: { accessToken, refreshToken }
 ```
 
 ::: info Redis direto
