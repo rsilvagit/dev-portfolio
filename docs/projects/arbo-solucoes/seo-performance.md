@@ -1,6 +1,6 @@
 # SEO e Performance
 
-Estrategia completa de SEO on-page, structured data, Core Web Vitals e acessibilidade.
+> Estrategia completa de SEO on-page, structured data, Core Web Vitals e acessibilidade WCAG 2.1.
 
 ## Estrategia SEO
 
@@ -100,7 +100,9 @@ Ranquear para buscas locais de servicos ambientais em Porto Alegre:
 }
 ```
 
-**Impacto**: Rich snippets no Google (estrelas, telefone, endereco).
+::: tip Impacto
+Rich snippets no Google com estrelas, telefone e endereco visíveis diretamente nos resultados de busca.
+:::
 
 ### 2. Service (Paginas de servico)
 

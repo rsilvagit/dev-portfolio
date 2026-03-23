@@ -8,12 +8,14 @@ export default defineConfig({
 
   head: [
     ['meta', { name: 'author', content: 'Rafael Silva' }],
-    ['meta', { name: 'keywords', content: 'portfolio, desenvolvedor, typescript, vite, frontend, backend' }],
+    ['meta', { name: 'keywords', content: 'portfolio, desenvolvedor, typescript, vite, frontend, backend, go' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap' }],
   ],
 
   themeConfig: {
-    logo: '/logo.svg',
-    siteTitle: 'Dev Portfolio',
+    siteTitle: 'rsilva.dev',
 
     nav: [
       { text: 'Home', link: '/' },

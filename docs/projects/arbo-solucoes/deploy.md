@@ -1,6 +1,6 @@
 # Deploy e CI/CD
 
-Pipeline automatizado com GitHub Actions, deploy no GitHub Pages com dominio custom.
+> Pipeline automatizado com GitHub Actions. Do push ao deploy em ~2 minutos.
 
 ## Pipeline
 

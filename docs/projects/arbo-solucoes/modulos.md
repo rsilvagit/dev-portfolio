@@ -1,6 +1,6 @@
 # Modulos TypeScript
 
-14 modulos em `src/modules/`, totalizando ~1.175 linhas de TypeScript.
+> 14 modulos em `src/modules/`, totalizando ~1.175 linhas de TypeScript puro, sem dependencias de framework.
 
 ```
 src/modules/
@@ -72,7 +72,9 @@ menu.addEventListener('keydown', (e) => {
 });
 ```
 
-Usuarios de teclado/screen reader nao ficam "presos" fora do menu.
+::: tip Acessibilidade
+Usuarios de teclado/screen reader nao ficam "presos" fora do menu. Essencial para WCAG 2.1 compliance.
+:::
 
 ---
 
@@ -160,7 +162,9 @@ function checkRateLimit(): boolean {
 }
 ```
 
-APIs publicas brasileiras tem rate limits agressivos. Proteger no client evita bloqueio do IP.
+::: warning Rate Limiting
+APIs publicas brasileiras tem rate limits agressivos. Proteger no client evita bloqueio do IP e melhora a experiencia do usuario.
+:::
 
 ---
 
@@ -220,7 +224,9 @@ export function initScrollAnimator() {
 }
 ```
 
-JavaScript como trigger, CSS como motor. Zero dependencias de animation libraries.
+::: info Padrao
+JavaScript como trigger, CSS como motor de animacao. Zero dependencias de animation libraries.
+:::
 
 ---
 

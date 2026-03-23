@@ -1,5 +1,7 @@
 # Arquitetura
 
+> Arquitetura Multi-Page Application com Vite, component injection pattern e theme system CSS-driven.
+
 ## Multi-Page Application (MPA)
 
 ```
@@ -48,11 +50,12 @@ build: {
 }
 ```
 
-**Beneficios**:
+::: tip Beneficios do MPA
 - Cada pagina carrega apenas o JS necessario
 - SEO-friendly: HTML real servido pelo servidor
 - Code splitting automatico pelo Rollup
 - Funciona sem JavaScript (progressive enhancement)
+:::
 
 ## Fluxo de inicializacao
 
@@ -83,7 +86,9 @@ initFooter()              --> Ano dinamico
 initCookieConsent()       --> Banner LGPD
 ```
 
-A ordem importa: componentes injetados primeiro, depois tema, depois interatividade.
+::: warning Ordem importa
+Componentes injetados primeiro, depois tema, depois interatividade. Inverter pode causar race conditions.
+:::
 
 ## Estrutura de diretorios
 
@@ -139,7 +144,9 @@ export function injectSharedComponents() {
 }
 ```
 
-**Trade-off**: Menos ergonomico que JSX, mas zero overhead de virtual DOM.
+::: info Trade-off
+Menos ergonomico que JSX, mas zero overhead de virtual DOM e zero dependencias de framework.
+:::
 
 ### 2. Data Layer via JSON
 

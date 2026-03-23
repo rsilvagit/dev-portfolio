@@ -1,13 +1,13 @@
 # Design System CSS
 
-22 arquivos CSS modulares com design tokens HSL, dark mode nativo e responsividade mobile-first.
+> 22 arquivos CSS modulares com design tokens HSL, dark mode nativo e responsividade mobile-first.
 
-## Principios
-
-- **CSS puro**: Sem Sass, Less, PostCSS ou Tailwind
-- **Custom Properties**: Variaveis nativas substituem pre-processadores
-- **Zero runtime**: Nenhum CSS-in-JS, tudo cacheable pelo browser
-- **BEM-like**: Nomenclatura semantica previne colisoes sem scoping
+::: tip Principios
+- **CSS puro** - Sem Sass, Less, PostCSS ou Tailwind
+- **Custom Properties** - Variaveis nativas substituem pre-processadores
+- **Zero runtime** - Nenhum CSS-in-JS, tudo cacheable pelo browser
+- **BEM-like** - Nomenclatura semantica previne colisoes sem scoping
+:::
 
 ## Arquitetura de arquivos
 
@@ -91,7 +91,9 @@ HSL permite manipulacao facil de opacidade: `hsl(var(--color) / 0.5)`
 }
 ```
 
+::: info Decisao de contraste
 Cores primarias ficam mais brilhantes no dark mode para manter contraste WCAG AA.
+:::
 
 ### Tipografia
 
