@@ -16,7 +16,7 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    siteTitle: 'rsilva.dev',
+    siteTitle: 'Rafael Silva',
 
     nav: [
       { text: 'Home', link: '/' },
