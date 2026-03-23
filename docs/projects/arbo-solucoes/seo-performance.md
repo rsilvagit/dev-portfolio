@@ -1,6 +1,6 @@
 # SEO e Performance
 
-Estratégia completa de SEO on-page, structured data, Core Web Vitals e acessibilidade.
+> Estratégia completa de SEO on-page, structured data, Core Web Vitals e acessibilidade WCAG 2.1.
 
 ## Estratégia SEO
 
@@ -100,7 +100,9 @@ Ranquear para buscas locais de serviços ambientais em Porto Alegre:
 }
 ```
 
-**Impacto**: Rich snippets no Google (estrelas, telefone, endereço).
+::: tip Impacto
+Rich snippets no Google com estrelas, telefone e endereço visíveis diretamente nos resultados de busca.
+:::
 
 ### 2. Service (Páginas de serviço)
 
@@ -204,7 +206,7 @@ Análise ------> Poda, Corte, Laudos, Monitoramento, Licenciamento
 ```
 
 #### Code splitting MPA
-Cada entry point gera bundle independente. Rollup deduplica modulos compartilhados.
+Cada entry point gera bundle independente. Rollup deduplica módulos compartilhados.
 
 #### Animações GPU-accelerated
 Usam `transform` e `opacity` (GPU). Nunca `width`, `height`, `top` (layout reflow).
@@ -227,7 +229,7 @@ Em vez de scroll events que bloqueiam main thread.
 
 | Feature | Implementação |
 |---------|--------------|
-| **Skip link** | Primeiro elemento do DOM, visivel no focus |
+| **Skip link** | Primeiro elemento do DOM, visível no focus |
 | **Semantic HTML** | `<main>`, `<nav>`, `<header>`, `<footer>`, `<dialog>` |
 | **ARIA labels** | Todos botões e links interativos |
 | **ARIA expanded** | Estado do hamburger menu |

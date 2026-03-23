@@ -1,33 +1,21 @@
 # Arquitetura
 
+> Arquitetura Multi-Page Application com Vite, component injection pattern e theme system CSS-driven.
+
 ## Multi-Page Application (MPA)
 
-```
-                    +-------------------+
-                    |   vite.config.ts  |
-                    |  (14 entry points)|
-                    +--------+----------+
-                             |
-              +--------------+--------------+
-              |                             |
-     +--------v--------+          +--------v--------+
-     |   index.html    |          | servicos/*/     |
-     |   (Homepage)    |          | index.html (x13)|
-     +--------+--------+          +--------+--------+
-              |                             |
-              +-------------+---------------+
-                            |
-                   +--------v--------+
-                   |    src/main.ts  |
-                   |  (Entry point)  |
-                   +--------+--------+
-                            |
-              +-------------+-------------+
-              |             |             |
-     +--------v--+  +------v------+ +---v-----------+
-     | modules/  |  | styles/     | | public/       |
-     | (14 .ts)  |  | (22 .css)  | | (data, imgs)  |
-     +-----------+  +-------------+ +---------------+
+```mermaid
+graph TB
+    VITE["vite.config.ts<br/>14 entry points"] --> HOME["index.html<br/>Homepage"]
+    VITE --> SVC["servicos/*/index.html<br/>13 páginas de serviço"]
+    HOME --> MAIN["src/main.ts<br/>Entry point"]
+    SVC --> MAIN
+    MAIN --> MOD["modules/<br/>14 .ts"]
+    MAIN --> STY["styles/<br/>22 .css"]
+    MAIN --> PUB["public/<br/>data, imgs"]
+
+    style VITE fill:#5b6ee1,color:#fff,stroke:#5b6ee1
+    style MAIN fill:#7c8cf0,color:#fff,stroke:#7c8cf0
 ```
 
 ## Roteamento baseado em arquivos
@@ -48,42 +36,31 @@ build: {
 }
 ```
 
-**Benefícios**:
+::: tip Benefícios do MPA
 - Cada página carrega apenas o JS necessário
 - SEO-friendly: HTML real servido pelo servidor
 - Code splitting automático pelo Rollup
 - Funciona sem JavaScript (progressive enhancement)
+:::
 
 ## Fluxo de inicialização
 
-```
-DOMContentLoaded
-  |
-  v
-injectSharedComponents()  --> Navbar, Footer, Modal, Cookie Banner
-  |
-  v
-initDarkMode()            --> Tema (localStorage + system preference)
-  |
-  v
-initNavbar()              --> Scroll detection, mobile menu, focus trap
-  |
-  v
-await initTestimonials()  --> Fetch JSON, shuffle, render 4 cards
-await initClients()       --> Fetch JSON, shuffle, render 8 logos
-  |
-  v
-initScrollAnimator()      --> IntersectionObserver para animações
-initCityFlip()            --> Carrossel de cidades
-injectRelatedServices()   --> Cross-linking entre serviços
-  |
-  v
-initContactModal()        --> Dialog, tabs PF/PJ, CNPJ/CEP lookup
-initFooter()              --> Ano dinâmico
-initCookieConsent()       --> Banner LGPD
+```mermaid
+graph TD
+    DOM["DOMContentLoaded"] --> INJ["injectSharedComponents()<br/>Navbar, Footer, Modal, Cookie Banner"]
+    INJ --> DARK["initDarkMode()<br/>localStorage + system preference"]
+    DARK --> NAV["initNavbar()<br/>Scroll detection, mobile menu, focus trap"]
+    NAV --> DATA["await initTestimonials() + initClients()<br/>Fetch JSON, shuffle, render"]
+    DATA --> ANIM["initScrollAnimator() · initCityFlip()<br/>injectRelatedServices()"]
+    ANIM --> UI["initContactModal() · initFooter()<br/>initCookieConsent()"]
+
+    style DOM fill:#5b6ee1,color:#fff,stroke:#5b6ee1
+    style UI fill:#7c8cf0,color:#fff,stroke:#7c8cf0
 ```
 
-A ordem importa: componentes injetados primeiro, depois tema, depois interatividade.
+::: warning Ordem importa
+Componentes injetados primeiro, depois tema, depois interatividade. Inverter pode causar race conditions.
+:::
 
 ## Estrutura de diretórios
 
@@ -139,7 +116,9 @@ export function injectSharedComponents() {
 }
 ```
 
-**Trade-off**: Menos ergonômico que JSX, mas zero overhead de virtual DOM.
+::: info Trade-off
+Menos ergonômico que JSX, mas zero overhead de virtual DOM e zero dependências de framework.
+:::
 
 ### 2. Data Layer via JSON
 

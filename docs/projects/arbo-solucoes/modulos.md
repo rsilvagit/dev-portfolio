@@ -1,6 +1,6 @@
 # Módulos TypeScript
 
-14 módulos em `src/modules/`, totalizando ~1.175 linhas de TypeScript.
+> 14 módulos em `src/modules/`, totalizando ~1.175 linhas de TypeScript puro, sem dependências de framework.
 
 ```
 src/modules/
@@ -72,7 +72,9 @@ menu.addEventListener('keydown', (e) => {
 });
 ```
 
-Usuários de teclado/screen reader não ficam "presos" fora do menu.
+::: tip Acessibilidade
+Usuários de teclado/screen reader não ficam "presos" fora do menu. Essencial para WCAG 2.1 compliance.
+:::
 
 ---
 
@@ -82,20 +84,14 @@ O módulo mais complexo (289 linhas). Formulário de orçamento com:
 
 ### Sistema de Tabs PF/PJ
 
-```
-+------------------+-------------------+
-|  Pessoa Física   |  Pessoa Jurídica  |  <-- Tabs com aria-selected
-+------------------+-------------------+
-|  Nome / Razão Social  (label muda)  |
-|  CNPJ (só aparece para PJ)          |
-|  Telefone, Email                     |
-|  CEP  [auto-fill endereço]           |
-|  Endereço, Número, Bairro            |
-|  Cidade, UF                          |
-|  Serviço desejado (dropdown)         |
-|  Descrição                           |
-|  [Solicitar Orçamento via WhatsApp]  |
-+--------------------------------------+
+```mermaid
+block-beta
+    columns 2
+    PF["Pessoa Física"]:1 PJ["Pessoa Jurídica"]:1
+    FORM["Nome / Razão Social · CNPJ (só PJ)<br/>Telefone · Email · CEP (auto-fill)<br/>Endereço · Número · Bairro · Cidade · UF<br/>Serviço desejado · Descrição<br/>Solicitar Orçamento via WhatsApp"]:2
+
+    style PF fill:#5b6ee1,color:#fff
+    style PJ fill:#7c8cf0,color:#fff
 ```
 
 ### Integrações API
@@ -123,7 +119,7 @@ window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)
 ```
 
 ### Dialog Management
-- Elemento nativo `<dialog>` (semânticamente correto)
+- Elemento nativo `<dialog>` (semanticamente correto)
 - Click fora fecha, Escape fecha
 - Previne scroll do body quando aberto
 
@@ -160,7 +156,9 @@ function checkRateLimit(): boolean {
 }
 ```
 
-APIs públicas brasileiras têm rate limits agressivos. Proteger no client evita bloqueio do IP.
+::: warning Rate Limiting
+APIs públicas brasileiras têm rate limits agressivos. Proteger no client evita bloqueio do IP e melhora a experiência do usuário.
+:::
 
 ---
 
@@ -220,7 +218,9 @@ export function initScrollAnimator() {
 }
 ```
 
-JavaScript como trigger, CSS como motor. Zero dependências de animation libraries.
+::: info Padrão
+JavaScript como trigger, CSS como motor de animação. Zero dependências de animation libraries.
+:::
 
 ---
 

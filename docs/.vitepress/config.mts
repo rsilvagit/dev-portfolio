@@ -1,19 +1,23 @@
 import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 
-export default defineConfig({
+export default withMermaid(defineConfig({
   title: 'Rafael Silva',
   description: 'Portfolio de Desenvolvimento - Projetos, arquitetura e decisões técnicas',
   lang: 'pt-BR',
   cleanUrls: true,
+  base: '/dev-portfolio/',
 
   head: [
     ['meta', { name: 'author', content: 'Rafael Silva' }],
-    ['meta', { name: 'keywords', content: 'portfolio, desenvolvedor, typescript, vite, frontend, backend' }],
+    ['meta', { name: 'keywords', content: 'portfolio, desenvolvedor, typescript, vite, frontend, backend, go, python, mcp' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap' }],
   ],
 
   themeConfig: {
-    logo: '/logo.svg',
-    siteTitle: 'Dev Portfolio',
+    siteTitle: 'Rafael Silva',
 
     nav: [
       { text: 'Home', link: '/' },
@@ -35,12 +39,50 @@ export default defineConfig({
           ],
         },
       ],
+      '/projects/go-work/': [
+        {
+          text: 'go-work',
+          items: [
+            { text: 'Visão Geral', link: '/projects/go-work/' },
+            { text: 'Arquitetura', link: '/projects/go-work/arquitetura' },
+            { text: 'Padrões Técnicos', link: '/projects/go-work/padroes' },
+            { text: 'Pipeline de Dados', link: '/projects/go-work/pipeline' },
+            { text: 'Infra e Deploy', link: '/projects/go-work/deploy' },
+          ],
+        },
+      ],
+      '/projects/poke-mcp/': [
+        {
+          text: 'poke-mcp',
+          items: [
+            { text: 'Visão Geral', link: '/projects/poke-mcp/' },
+            { text: 'Arquitetura', link: '/projects/poke-mcp/arquitetura' },
+            { text: 'Installer e Distribuição', link: '/projects/poke-mcp/distribuicao' },
+          ],
+        },
+      ],
+      '/projects/business-assistant/': [
+        {
+          text: 'Business Assistant',
+          items: [
+            { text: 'Visão Geral', link: '/projects/business-assistant/' },
+            { text: 'Arquitetura', link: '/projects/business-assistant/arquitetura' },
+            { text: 'Autenticação e Segurança', link: '/projects/business-assistant/autenticacao' },
+            { text: 'Modelo de Dados', link: '/projects/business-assistant/modelo-dados' },
+            { text: 'Exceções e Logging', link: '/projects/business-assistant/excecoes' },
+            { text: 'Deploy e CI/CD', link: '/projects/business-assistant/deploy' },
+          ],
+        },
+      ],
       '/projects/': [
         {
           text: 'Projetos',
           items: [
             { text: 'Todos os Projetos', link: '/projects/' },
+            { text: 'Business Assistant', link: '/projects/business-assistant/' },
             { text: 'Arbo Soluções', link: '/projects/arbo-solucoes/' },
+            { text: 'go-work', link: '/projects/go-work/' },
+            { text: 'poke-mcp', link: '/projects/poke-mcp/' },
           ],
         },
       ],
@@ -70,4 +112,4 @@ export default defineConfig({
       next: 'Próximo',
     },
   },
-})
+}))
