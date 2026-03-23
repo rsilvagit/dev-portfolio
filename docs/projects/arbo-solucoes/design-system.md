@@ -2,44 +2,44 @@
 
 22 arquivos CSS modulares com design tokens HSL, dark mode nativo e responsividade mobile-first.
 
-## Principios
+## Princípios
 
 - **CSS puro**: Sem Sass, Less, PostCSS ou Tailwind
-- **Custom Properties**: Variaveis nativas substituem pre-processadores
+- **Custom Properties**: Variáveis nativas substituem pré-processadores
 - **Zero runtime**: Nenhum CSS-in-JS, tudo cacheable pelo browser
-- **BEM-like**: Nomenclatura semantica previne colisoes sem scoping
+- **BEM-like**: Nomenclatura semântica previne colisões sem scoping
 
 ## Arquitetura de arquivos
 
 ```
 src/styles/main.css (Index de imports)
   |
-  +-- Fundacao
+  +-- Fundação
   |   +-- variables.css       Design tokens (cores, fontes, gradientes)
-  |   +-- reset.css           Normalizacao baseline
+  |   +-- reset.css           Normalização baseline
   |   +-- base.css            Tipografia global
   |   +-- layout.css          Container, spacing, skip link
   |   +-- animations.css      Keyframes + triggers
-  |   +-- buttons.css         Variantes de botao
+  |   +-- buttons.css         Variantes de botão
   |
-  +-- Secoes
-  |   +-- navbar.css          Navegacao fixa
+  +-- Seções
+  |   +-- navbar.css          Navegação fixa
   |   +-- hero.css            Hero section
   |   +-- about.css           Sobre a empresa
-  |   +-- services.css        Grid de servicos
+  |   +-- services.css        Grid de serviços
   |   +-- testimonials.css    Depoimentos
   |   +-- clients.css         Logos de clientes
   |   +-- contact.css         CTA de contato
-  |   +-- footer.css          Rodape
+  |   +-- footer.css          Rodapé
   |
   +-- Componentes
-  |   +-- modal.css           Dialog de formulario
-  |   +-- toast.css           Notificacoes
+  |   +-- modal.css           Dialog de formulário
+  |   +-- toast.css           Notificações
   |   +-- cookie-consent.css  Banner LGPD
-  |   +-- city-flip.css       Animacao de cidades
+  |   +-- city-flip.css       Animação de cidades
   |
   +-- Templates
-  |   +-- service-page.css    Paginas de servico
+  |   +-- service-page.css    Páginas de serviço
   |   +-- ads-landing.css     Landing pages
   |
   +-- Temas
@@ -52,7 +52,7 @@ src/styles/main.css (Index de imports)
 
 ### Cores HSL
 
-HSL permite manipulacao facil de opacidade: `hsl(var(--color) / 0.5)`
+HSL permite manipulação fácil de opacidade: `hsl(var(--color) / 0.5)`
 
 ```css
 :root {
@@ -91,7 +91,7 @@ HSL permite manipulacao facil de opacidade: `hsl(var(--color) / 0.5)`
 }
 ```
 
-Cores primarias ficam mais brilhantes no dark mode para manter contraste WCAG AA.
+Cores primárias ficam mais brilhantes no dark mode para manter contraste WCAG AA.
 
 ### Tipografia
 
@@ -136,7 +136,7 @@ Cores primarias ficam mais brilhantes no dark mode para manter contraste WCAG AA
 
 ---
 
-## Sistema de animacoes
+## Sistema de animações
 
 ### Keyframes
 
@@ -160,7 +160,7 @@ Cores primarias ficam mais brilhantes no dark mode para manter contraste WCAG AA
 ### Trigger Pattern
 
 ```css
-/* Estado inicial: invisivel */
+/* Estado inicial: invisível */
 .anim-target { opacity: 0; }
 
 /* Ativado via IntersectionObserver */
@@ -169,7 +169,7 @@ Cores primarias ficam mais brilhantes no dark mode para manter contraste WCAG AA
 }
 ```
 
-Separacao de responsabilidades: JS detecta, CSS executa. `data-anim-delay` permite stagger.
+Separação de responsabilidades: JS detecta, CSS executa. `data-anim-delay` permite stagger.
 
 ---
 
@@ -225,7 +225,7 @@ Separacao de responsabilidades: JS detecta, CSS executa. `data-anim-delay` permi
 
 ## Dark Mode
 
-### Transicao suave
+### Transição suave
 
 ```css
 * {
@@ -235,7 +235,7 @@ Separacao de responsabilidades: JS detecta, CSS executa. `data-anim-delay` permi
 }
 ```
 
-### Overrides especificos
+### Overrides específicos
 
 ```css
 .dark .hero__overlay {
@@ -251,7 +251,7 @@ Separacao de responsabilidades: JS detecta, CSS executa. `data-anim-delay` permi
 
 ---
 
-## Botoes
+## Botões
 
 4 variantes com hover effects:
 
@@ -260,4 +260,4 @@ Separacao de responsabilidades: JS detecta, CSS executa. `data-anim-delay` permi
 | `.btn--cta` | CTA principal | Gradiente verde + scale |
 | `.btn--outline-light` | Sobre fundos escuros | Borda branca transparente |
 | `.btn--cta-inverse` | Destaque especial | Branco + glow pulsante |
-| `.btn--submit` | Formulario | Full-width + gradiente |
+| `.btn--submit` | Formulário | Full-width + gradiente |

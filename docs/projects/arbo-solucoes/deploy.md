@@ -1,6 +1,6 @@
 # Deploy e CI/CD
 
-Pipeline automatizado com GitHub Actions, deploy no GitHub Pages com dominio custom.
+Pipeline automatizado com GitHub Actions, deploy no GitHub Pages com domínio custom.
 
 ## Pipeline
 
@@ -10,7 +10,7 @@ git push main
      v
 GitHub Actions (.github/workflows/static.yml)
      |
-     +-- Checkout codigo
+     +-- Checkout código
      +-- Setup Node 20
      +-- npm ci (install deps)
      +-- npm run build (vite build)
@@ -28,7 +28,7 @@ name: Deploy static content to Pages
 
 on:
   push:
-    branches: ["main"]     # Deploy automatico
+    branches: ["main"]     # Deploy automático
   workflow_dispatch:        # Deploy manual
 
 permissions:
@@ -58,14 +58,14 @@ jobs:
       - uses: actions/deploy-pages@v4
 ```
 
-### Decisoes
+### Decisões
 
 | Config | Valor | Justificativa |
 |--------|-------|---------------|
-| **Trigger** | push main | Deploy continuo sem staging |
-| **workflow_dispatch** | Habilitado | Deploy manual quando necessario |
-| **cancel-in-progress** | false | Nao interrompe deploys ativos |
-| **npm ci** | (vs npm install) | Reprodutivel via lockfile |
+| **Trigger** | push main | Deploy contínuo sem staging |
+| **workflow_dispatch** | Habilitado | Deploy manual quando necessário |
+| **cancel-in-progress** | false | Não interrompe deploys ativos |
+| **npm ci** | (vs npm install) | Reprodutível via lockfile |
 | **Node 20** | LTS | Estabilidade |
 
 ## Build Process (Vite)
@@ -77,7 +77,7 @@ vite build
   +-- Transpila TypeScript -> JavaScript (ES2020)
   +-- Processa CSS imports -> bundle
   +-- Tree-shaking + code splitting
-  +-- Minificacao (Rollup + esbuild)
+  +-- Minificação (Rollup + esbuild)
   +-- Substitui %VITE_SITE_URL% (.env)
   +-- Copia public/ -> dist/
   |
@@ -91,7 +91,7 @@ vite build
   +-- robots.txt, sitemap.xml, CNAME
 ```
 
-## Variaveis de ambiente
+## Variáveis de ambiente
 
 ```
 # .env
@@ -100,15 +100,15 @@ VITE_SITE_URL=https://www.arbosolucoes.com
 
 Vite substitui `%VITE_SITE_URL%` no HTML durante o build para canonical URLs, Open Graph e schema markup.
 
-## Dominio Custom
+## Domínio Custom
 
-**CNAME**: `public/CNAME` contem `www.arbosolucoes.com`
+**CNAME**: `public/CNAME` contém `www.arbosolucoes.com`
 
 ```
 www.arbosolucoes.com  -->  CNAME  -->  rsilvagit.github.io
 ```
 
-SSL automatico via Let's Encrypt (GitHub Pages).
+SSL automático via Let's Encrypt (GitHub Pages).
 
 ## Fluxo de desenvolvimento
 
@@ -122,12 +122,12 @@ SSL automatico via Let's Encrypt (GitHub Pages).
 7. Site atualizado
 ```
 
-## Seguranca
+## Segurança
 
-| Aspecto | Implementacao |
+| Aspecto | Implementação |
 |---------|--------------|
 | **HTTPS** | Let's Encrypt via GitHub Pages |
-| **Permissions** | GITHUB_TOKEN com minimo privilegio |
+| **Permissions** | GITHUB_TOKEN com mínimo privilégio |
 | **Dependencies** | 1 runtime + 2 devDeps |
 | **npm ci** | Lockfile-only (previne supply chain) |
 | **Static site** | Sem backend, sem banco, sem servidor |
@@ -139,5 +139,5 @@ SSL automatico via Let's Encrypt (GitHub Pages).
 | Hosting | Gratuito (GitHub Pages) |
 | SSL | Gratuito (Let's Encrypt) |
 | CI/CD | Gratuito (GitHub Actions) |
-| Dominio | ~R$ 40/ano |
+| Domínio | ~R$ 40/ano |
 | **Total** | **~R$ 40/ano** |

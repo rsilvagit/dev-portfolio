@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   title: 'Rafael Silva',
-  description: 'Portfolio de Desenvolvimento - Projetos, arquitetura e decisoes tecnicas',
+  description: 'Portfolio de Desenvolvimento - Projetos, arquitetura e decisões técnicas',
   lang: 'pt-BR',
   cleanUrls: true,
 
@@ -24,11 +24,11 @@ export default defineConfig({
     sidebar: {
       '/projects/arbo-solucoes/': [
         {
-          text: 'Arbo Solucoes',
+          text: 'Arbo Soluções',
           items: [
-            { text: 'Visao Geral', link: '/projects/arbo-solucoes/' },
+            { text: 'Visão Geral', link: '/projects/arbo-solucoes/' },
             { text: 'Arquitetura', link: '/projects/arbo-solucoes/arquitetura' },
-            { text: 'Modulos TypeScript', link: '/projects/arbo-solucoes/modulos' },
+            { text: 'Módulos TypeScript', link: '/projects/arbo-solucoes/modulos' },
             { text: 'Design System CSS', link: '/projects/arbo-solucoes/design-system' },
             { text: 'SEO e Performance', link: '/projects/arbo-solucoes/seo-performance' },
             { text: 'Deploy e CI/CD', link: '/projects/arbo-solucoes/deploy' },
@@ -40,7 +40,7 @@ export default defineConfig({
           text: 'Projetos',
           items: [
             { text: 'Todos os Projetos', link: '/projects/' },
-            { text: 'Arbo Solucoes', link: '/projects/arbo-solucoes/' },
+            { text: 'Arbo Soluções', link: '/projects/arbo-solucoes/' },
           ],
         },
       ],
@@ -52,7 +52,7 @@ export default defineConfig({
     ],
 
     footer: {
-      message: 'Portfolio de Desenvolvimento',
+      message: '(51) 99248-2112 | rafael.sdasilva84@hotmail.com',
       copyright: '2024-present Rafael Silva',
     },
 
@@ -61,13 +61,13 @@ export default defineConfig({
     },
 
     outline: {
-      label: 'Nesta pagina',
+      label: 'Nesta página',
       level: [2, 3],
     },
 
     docFooter: {
       prev: 'Anterior',
-      next: 'Proximo',
+      next: 'Próximo',
     },
   },
 })

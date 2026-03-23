@@ -1,53 +1,53 @@
-# Modulos TypeScript
+# Módulos TypeScript
 
-14 modulos em `src/modules/`, totalizando ~1.175 linhas de TypeScript.
+14 módulos em `src/modules/`, totalizando ~1.175 linhas de TypeScript.
 
 ```
 src/modules/
 +-- config.ts              [4 linhas]   Constantes globais
-+-- shared-components.ts   [269 linhas] Injecao de componentes HTML
-+-- navbar.ts              [65 linhas]  Navegacao + acessibilidade
-+-- contact-modal.ts       [289 linhas] Formulario PF/PJ + APIs
++-- shared-components.ts   [269 linhas] Injeção de componentes HTML
++-- navbar.ts              [65 linhas]  Navegação + acessibilidade
++-- contact-modal.ts       [289 linhas] Formulário PF/PJ + APIs
 +-- cnpj-cep-service.ts    [85 linhas]  Masks, rate limit, API calls
 +-- dark-mode.ts           [43 linhas]  Tema persistente
-+-- scroll-animator.ts     [20 linhas]  Animacoes on-scroll
++-- scroll-animator.ts     [20 linhas]  Animações on-scroll
 +-- testimonials.ts        [48 linhas]  Depoimentos randomizados
 +-- clients.ts             [63 linhas]  Logos com variantes dark/light
 +-- city-flip.ts           [73 linhas]  Carrossel de cidades
-+-- related-services.ts    [154 linhas] Cross-linking entre servicos
++-- related-services.ts    [154 linhas] Cross-linking entre serviços
 +-- cookie-consent.ts      [19 linhas]  Banner LGPD
-+-- footer.ts              [4 linhas]   Ano dinamico
-+-- toast.ts               [38 linhas]  Notificacoes transientes
++-- footer.ts              [4 linhas]   Ano dinâmico
++-- toast.ts               [38 linhas]  Notificações transientes
 ```
 
 ---
 
 ## shared-components.ts - Component Injection
 
-O modulo mais critico. Gera HTML para componentes globais e injeta no DOM.
+O módulo mais crítico. Gera HTML para componentes globais e injeta no DOM.
 
-| Funcao | Responsabilidade |
+| Função | Responsabilidade |
 |--------|-----------------|
 | `renderNavbar()` | Header com links, tema, hamburger |
-| `renderFooter()` | Footer com credenciais e navegacao |
-| `renderContactModal()` | Dialog com formulario completo PF/PJ |
+| `renderFooter()` | Footer com credenciais e navegação |
+| `renderContactModal()` | Dialog com formulário completo PF/PJ |
 | `renderCookieConsent()` | Banner de cookies LGPD |
-| `injectSharedComponents()` | Orquestra injecao no DOM |
+| `injectSharedComponents()` | Orquestra injeção no DOM |
 
-**Idempotencia**: Cada injecao verifica se o elemento ja existe antes de criar, permitindo override via HTML.
+**Idempotência**: Cada injeção verifica se o elemento já existe antes de criar, permitindo override via HTML.
 
-**Deteccao de contexto**: `isHomePage()` gera `href` correto (relativo vs absoluto).
+**Detecção de contexto**: `isHomePage()` gera `href` correto (relativo vs absoluto).
 
 **Acessibilidade integrada**: `aria-label`, `aria-expanded`, `aria-selected`, `role="tablist"`, skip link.
 
 ---
 
-## navbar.ts - Navegacao Responsiva
+## navbar.ts - Navegação Responsiva
 
 ### Funcionalidades
 
 1. **Scroll Detection**: `.navbar--scrolled` quando `scrollY > 50`
-2. **Mobile Menu**: Toggle do hamburger com troca de icone (menu/X)
+2. **Mobile Menu**: Toggle do hamburger com troca de ícone (menu/X)
 3. **Focus Trap**: Tab cycling dentro do menu mobile aberto
 4. **Escape Key**: Fecha menu ao pressionar ESC
 5. **Body Lock**: `menu-open` previne scroll do body
@@ -72,58 +72,58 @@ menu.addEventListener('keydown', (e) => {
 });
 ```
 
-Usuarios de teclado/screen reader nao ficam "presos" fora do menu.
+Usuários de teclado/screen reader não ficam "presos" fora do menu.
 
 ---
 
-## contact-modal.ts - Formulario Inteligente
+## contact-modal.ts - Formulário Inteligente
 
-O modulo mais complexo (289 linhas). Formulario de orcamento com:
+O módulo mais complexo (289 linhas). Formulário de orçamento com:
 
 ### Sistema de Tabs PF/PJ
 
 ```
 +------------------+-------------------+
-|  Pessoa Fisica   |  Pessoa Juridica  |  <-- Tabs com aria-selected
+|  Pessoa Física   |  Pessoa Jurídica  |  <-- Tabs com aria-selected
 +------------------+-------------------+
-|  Nome / Razao Social  (label muda)  |
-|  CNPJ (so aparece para PJ)          |
+|  Nome / Razão Social  (label muda)  |
+|  CNPJ (só aparece para PJ)          |
 |  Telefone, Email                     |
-|  CEP  [auto-fill endereco]           |
-|  Endereco, Numero, Bairro            |
+|  CEP  [auto-fill endereço]           |
+|  Endereço, Número, Bairro            |
 |  Cidade, UF                          |
-|  Servico desejado (dropdown)         |
-|  Descricao                           |
-|  [Solicitar Orcamento via WhatsApp]  |
+|  Serviço desejado (dropdown)         |
+|  Descrição                           |
+|  [Solicitar Orçamento via WhatsApp]  |
 +--------------------------------------+
 ```
 
-### Integracoes API
+### Integrações API
 
 **CNPJ Lookup** (publica.cnpj.ws):
-- Dispara ao digitar 14 digitos
+- Dispara ao digitar 14 dígitos
 - Rate limit: 3 requests/minuto
-- Auto-preenche: razao social, endereco, telefone
+- Auto-preenche: razão social, endereço, telefone
 - Feedback visual: indicador verde/vermelho
 
 **CEP Lookup** (viacep.com.br):
-- Dispara ao digitar 8 digitos
+- Dispara ao digitar 8 dígitos
 - Auto-preenche: logradouro, bairro, cidade, UF
 
-### Submissao via WhatsApp
+### Submissão via WhatsApp
 
 ```typescript
-const message = `*Solicitacao de Orcamento*
+const message = `*Solicitação de Orçamento*
 *ID*: #${quoteId}
-*Tipo*: ${personType === 'pf' ? 'Pessoa Fisica' : 'Pessoa Juridica'}
+*Tipo*: ${personType === 'pf' ? 'Pessoa Física' : 'Pessoa Jurídica'}
 *Nome*: ${name}
-*Servico*: ${service}`;
+*Serviço*: ${service}`;
 
 window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`);
 ```
 
 ### Dialog Management
-- Elemento nativo `<dialog>` (semanticamente correto)
+- Elemento nativo `<dialog>` (semânticamente correto)
 - Click fora fecha, Escape fecha
 - Previne scroll do body quando aberto
 
@@ -160,21 +160,21 @@ function checkRateLimit(): boolean {
 }
 ```
 
-APIs publicas brasileiras tem rate limits agressivos. Proteger no client evita bloqueio do IP.
+APIs públicas brasileiras têm rate limits agressivos. Proteger no client evita bloqueio do IP.
 
 ---
 
 ## dark-mode.ts - Theme System
 
-### Hierarquia de preferencia
+### Hierarquia de preferência
 
 ```
-1. localStorage('arbo_theme')    --> Escolha explicita do usuario
-2. prefers-color-scheme: dark    --> Preferencia do OS
-3. Light mode                    --> Fallback padrao
+1. localStorage('arbo_theme')    --> Escolha explícita do usuário
+2. prefers-color-scheme: dark    --> Preferência do OS
+3. Light mode                    --> Fallback padrão
 ```
 
-### Implementacao
+### Implementação
 
 ```typescript
 export function initDarkMode() {
@@ -185,7 +185,7 @@ export function initDarkMode() {
     document.documentElement.classList.add('dark');
   }
 
-  // Reage a mudanca do OS
+  // Reage a mudança do OS
   matchMedia('(prefers-color-scheme: dark)')
     .addEventListener('change', (e) => {
       if (!localStorage.getItem('arbo_theme')) {
@@ -195,11 +195,11 @@ export function initDarkMode() {
 }
 ```
 
-**CSS-driven**: JS so adiciona/remove `.dark`. Todas as cores resolvidas por Custom Properties.
+**CSS-driven**: JS só adiciona/remove `.dark`. Todas as cores resolvidas por Custom Properties.
 
 ---
 
-## scroll-animator.ts - Animacoes on-scroll
+## scroll-animator.ts - Animações on-scroll
 
 Apenas 20 linhas. Performance via IntersectionObserver:
 
@@ -220,13 +220,13 @@ export function initScrollAnimator() {
 }
 ```
 
-JavaScript como trigger, CSS como motor. Zero dependencias de animation libraries.
+JavaScript como trigger, CSS como motor. Zero dependências de animation libraries.
 
 ---
 
 ## testimonials.ts e clients.ts - Fetch + Shuffle
 
-### Padrao compartilhado
+### Padrão compartilhado
 
 ```typescript
 // Fisher-Yates shuffle
@@ -236,9 +236,9 @@ for (let i = data.length - 1; i > 0; i--) {
 }
 ```
 
-- Dados em JSON estatico (`public/data/`)
+- Dados em JSON estático (`public/data/`)
 - Shuffle client-side a cada visita
-- Animacao staggered (0, 100, 200, 300ms)
+- Animação staggered (0, 100, 200, 300ms)
 - `clients.ts` suporta logos light/dark mode com `loading="lazy"`
 
 ---
@@ -249,28 +249,28 @@ for (let i = data.length - 1; i > 0; i--) {
 
 ```typescript
 const SERVICE_MAP = {
-  'poda': { slug: 'poda', title: 'Poda de Arvores', icon: '...' },
-  // ... 13 servicos
+  'poda': { slug: 'poda', title: 'Poda de Árvores', icon: '...' },
+  // ... 13 serviços
 };
 
 const RELATED: Record<string, string[]> = {
   'poda': ['corte-arvores', 'analise-risco', 'laudos-tecnicos', 'autorizacoes', 'art'],
   'corte-arvores': ['poda', 'analise-risco', 'autorizacoes', 'laudos-tecnicos', 'rt'],
-  // ... cada servico -> 5 relacionados
+  // ... cada serviço -> 5 relacionados
 };
 ```
 
-Detecta pagina atual via `window.location.pathname`, gera cards e injeta antes do `.contact-cta`.
+Detecta página atual via `window.location.pathname`, gera cards e injeta antes do `.contact-cta`.
 
-**Impacto SEO**: Links internos distribuem autoridade entre paginas e reduzem bounce rate.
+**Impacto SEO**: Links internos distribuem autoridade entre páginas e reduzem bounce rate.
 
 ---
 
-## Padroes recorrentes
+## Padrões recorrentes
 
-| Padrao | Modulos | Descricao |
+| Padrão | Módulos | Descrição |
 |--------|---------|-----------|
 | **IntersectionObserver** | scroll-animator, city-flip | JS detecta visibilidade, CSS anima |
-| **localStorage** | dark-mode, cookie-consent | Persistencia leve entre sessoes |
-| **Fetch + Shuffle** | testimonials, clients | JSON estatico, conteudo fresco a cada visita |
-| **Progressive Enhancement** | Todos | Site funciona sem JS, modulos sao opcionais |
+| **localStorage** | dark-mode, cookie-consent | Persistência leve entre sessões |
+| **Fetch + Shuffle** | testimonials, clients | JSON estático, conteúdo fresco a cada visita |
+| **Progressive Enhancement** | Todos | Site funciona sem JS, módulos são opcionais |

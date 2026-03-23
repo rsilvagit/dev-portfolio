@@ -32,7 +32,7 @@
 
 ## Roteamento baseado em arquivos
 
-Cada pagina de servico e um entry point independente no Vite:
+Cada página de serviço é um entry point independente no Vite:
 
 ```typescript
 // vite.config.ts
@@ -42,19 +42,19 @@ build: {
       main: resolve(__dirname, "index.html"),
       "poda": resolve(__dirname, "servicos/poda/index.html"),
       "corte-arvores": resolve(__dirname, "servicos/corte-arvores/index.html"),
-      // ... 13 paginas de servico
+      // ... 13 páginas de serviço
     }
   }
 }
 ```
 
-**Beneficios**:
-- Cada pagina carrega apenas o JS necessario
+**Benefícios**:
+- Cada página carrega apenas o JS necessário
 - SEO-friendly: HTML real servido pelo servidor
-- Code splitting automatico pelo Rollup
+- Code splitting automático pelo Rollup
 - Funciona sem JavaScript (progressive enhancement)
 
-## Fluxo de inicializacao
+## Fluxo de inicialização
 
 ```
 DOMContentLoaded
@@ -73,25 +73,25 @@ await initTestimonials()  --> Fetch JSON, shuffle, render 4 cards
 await initClients()       --> Fetch JSON, shuffle, render 8 logos
   |
   v
-initScrollAnimator()      --> IntersectionObserver para animacoes
+initScrollAnimator()      --> IntersectionObserver para animações
 initCityFlip()            --> Carrossel de cidades
-injectRelatedServices()   --> Cross-linking entre servicos
+injectRelatedServices()   --> Cross-linking entre serviços
   |
   v
 initContactModal()        --> Dialog, tabs PF/PJ, CNPJ/CEP lookup
-initFooter()              --> Ano dinamico
+initFooter()              --> Ano dinâmico
 initCookieConsent()       --> Banner LGPD
 ```
 
 A ordem importa: componentes injetados primeiro, depois tema, depois interatividade.
 
-## Estrutura de diretorios
+## Estrutura de diretórios
 
 ```
 arbo-sparkle-refresh/
 |
 +-- index.html                    # Homepage
-+-- servicos/                     # 13 landing pages de servico
++-- servicos/                     # 13 landing pages de serviço
 |   +-- poda/index.html
 |   +-- corte-arvores/index.html
 |   +-- analise-risco/index.html
@@ -107,13 +107,13 @@ arbo-sparkle-refresh/
 |   +-- rt/index.html
 |
 +-- src/
-|   +-- main.ts                   # Entry point unico
-|   +-- modules/                  # 14 modulos TypeScript
+|   +-- main.ts                   # Entry point único
+|   +-- modules/                  # 14 módulos TypeScript
 |   +-- styles/                   # 22 arquivos CSS modulares
 |
 +-- public/
 |   +-- data/                     # JSON (clientes, depoimentos)
-|   +-- images/                   # Assets estaticos
+|   +-- images/                   # Assets estáticos
 |   +-- robots.txt, sitemap.xml
 |
 +-- .github/workflows/static.yml # CI/CD
@@ -121,7 +121,7 @@ arbo-sparkle-refresh/
 +-- tsconfig.json                 # TypeScript strict mode
 ```
 
-## Decisoes arquiteturais
+## Decisões arquiteturais
 
 ### 1. Component Injection Pattern
 
@@ -139,25 +139,25 @@ export function injectSharedComponents() {
 }
 ```
 
-**Trade-off**: Menos ergonomico que JSX, mas zero overhead de virtual DOM.
+**Trade-off**: Menos ergonômico que JSX, mas zero overhead de virtual DOM.
 
 ### 2. Data Layer via JSON
 
-Dados dinamicos (clientes, depoimentos) vivem em `public/data/*.json`:
+Dados dinâmicos (clientes, depoimentos) vivem em `public/data/*.json`:
 
-- Facil de atualizar sem tocar no codigo
+- Fácil de atualizar sem tocar no código
 - Versionado junto com o projeto
 - Servido estaticamente com cache do CDN
-- Randomizacao client-side para conteudo fresco
+- Randomização client-side para conteúdo fresco
 
 ### 3. API Integration Pattern
 
-O modulo `cnpj-cep-service.ts` implementa:
+O módulo `cnpj-cep-service.ts` implementa:
 
-- **Input masking**: Formatacao automatica de CNPJ/CEP
-- **Rate limiting client-side**: 3 requests/min para proteger APIs publicas
-- **Auto-fill**: Busca CNPJ preenche razao social, endereco, telefone
-- **Error handling**: Mensagens especificas para cada tipo de falha
+- **Input masking**: Formatação automática de CNPJ/CEP
+- **Rate limiting client-side**: 3 requests/min para proteger APIs públicas
+- **Auto-fill**: Busca CNPJ preenche razão social, endereço, telefone
+- **Error handling**: Mensagens específicas para cada tipo de falha
 
 ### 4. Theme System
 
@@ -168,9 +168,9 @@ Dark mode implementado com CSS Custom Properties:
 .dark { --background: 40 18% 5%; }        /* Dark */
 ```
 
-JavaScript apenas faz toggle da classe `.dark` no `<html>`. Toda a logica visual e CSS-only.
+JavaScript apenas faz toggle da classe `.dark` no `<html>`. Toda a lógica visual é CSS-only.
 
-## Configuracao TypeScript
+## Configuração TypeScript
 
 ```json
 {
@@ -186,6 +186,6 @@ JavaScript apenas faz toggle da classe `.dark` no `<html>`. Toda a logica visual
 ```
 
 - **strict: true** - Type checking completo
-- **noEmit** - Vite transpila, TS so valida tipos
+- **noEmit** - Vite transpila, TS só valida tipos
 - **bundler resolution** - Otimizado para Vite
 - **Path alias** - `@/modules/navbar` em vez de caminhos relativos

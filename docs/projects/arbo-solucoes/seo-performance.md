@@ -1,26 +1,26 @@
 # SEO e Performance
 
-Estrategia completa de SEO on-page, structured data, Core Web Vitals e acessibilidade.
+Estratégia completa de SEO on-page, structured data, Core Web Vitals e acessibilidade.
 
-## Estrategia SEO
+## Estratégia SEO
 
 ### Objetivo
 
-Ranquear para buscas locais de servicos ambientais em Porto Alegre:
+Ranquear para buscas locais de serviços ambientais em Porto Alegre:
 
-- "poda de arvores porto alegre"
+- "poda de árvores porto alegre"
 - "consultoria ambiental rs"
-- "laudo tecnico arboreo"
+- "laudo técnico arbóreo"
 - "licenciamento ambiental porto alegre"
 
 ### Pilares
 
 ```
-1. SEO Tecnico     --> HTML semantico, sitemap, robots, canonicals
-2. SEO On-page     --> Titulos, meta descriptions, headings, keywords
+1. SEO Técnico     --> HTML semântico, sitemap, robots, canonicals
+2. SEO On-page     --> Títulos, meta descriptions, headings, keywords
 3. SEO Local       --> Geo-targeting, LocalBusiness schema, NAP
 4. Structured Data --> JSON-LD (LocalBusiness, Service, FAQ, Breadcrumb)
-5. Content SEO     --> Landing pages por servico, FAQ, cross-linking
+5. Content SEO     --> Landing pages por serviço, FAQ, cross-linking
 ```
 
 ---
@@ -29,19 +29,19 @@ Ranquear para buscas locais de servicos ambientais em Porto Alegre:
 
 ### Homepage
 ```html
-<title>Arbo Solucoes | Consultoria Ambiental em Porto Alegre</title>
+<title>Arbo Soluções | Consultoria Ambiental em Porto Alegre</title>
 <meta name="description" content="Consultoria ambiental em Porto Alegre
-  desde 2014. Laudos tecnicos, poda e remocao de arvores..." />
+  desde 2014. Laudos técnicos, poda e remoção de árvores..." />
 ```
 
-### Paginas de servico
+### Páginas de serviço
 ```html
-<title>Poda de Arvore com Responsavel Tecnico | Arbo Solucoes</title>
-<meta name="description" content="Servico de poda de arvores em Porto Alegre
-  com responsavel tecnico conforme ABNT NBR 16246-1." />
+<title>Poda de Árvore com Responsável Técnico | Arbo Soluções</title>
+<meta name="description" content="Serviço de poda de árvores em Porto Alegre
+  com responsável técnico conforme ABNT NBR 16246-1." />
 ```
 
-### Tags comuns (todas as paginas)
+### Tags comuns (todas as páginas)
 ```html
 <meta name="robots" content="index, follow" />
 <meta name="geo.region" content="BR-RS" />
@@ -55,7 +55,7 @@ Ranquear para buscas locais de servicos ambientais em Porto Alegre:
 
 ```html
 <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
-<meta property="og:title" content="Poda de Arvores | Arbo Solucoes" />
+<meta property="og:title" content="Poda de Árvores | Arbo Soluções" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.arbosolucoes.com/servicos/poda/" />
 <meta property="og:locale" content="pt_BR" />
@@ -65,7 +65,7 @@ Ranquear para buscas locais de servicos ambientais em Porto Alegre:
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Poda de Arvores | Arbo Solucoes" />
+<meta name="twitter:title" content="Poda de Árvores | Arbo Soluções" />
 ```
 
 ---
@@ -77,7 +77,7 @@ Ranquear para buscas locais de servicos ambientais em Porto Alegre:
 ```json
 {
   "@type": "LocalBusiness",
-  "name": "Arbo Solucoes",
+  "name": "Arbo Soluções",
   "telephone": "+5551984843008",
   "email": "arbopodasejardinagem@gmail.com",
   "address": {
@@ -95,21 +95,21 @@ Ranquear para buscas locais de servicos ambientais em Porto Alegre:
     "ratingCount": "19"
   },
   "hasOfferCatalog": {
-    "itemListElement": ["13 servicos"]
+    "itemListElement": ["13 serviços"]
   }
 }
 ```
 
-**Impacto**: Rich snippets no Google (estrelas, telefone, endereco).
+**Impacto**: Rich snippets no Google (estrelas, telefone, endereço).
 
-### 2. Service (Paginas de servico)
+### 2. Service (Páginas de serviço)
 
 ```json
 {
   "@type": "Service",
-  "name": "Poda de Arvores",
-  "provider": { "@type": "LocalBusiness", "name": "Arbo Solucoes" },
-  "areaServed": "Porto Alegre e regiao metropolitana",
+  "name": "Poda de Árvores",
+  "provider": { "@type": "LocalBusiness", "name": "Arbo Soluções" },
+  "areaServed": "Porto Alegre e região metropolitana",
   "aggregateRating": { "ratingValue": "5", "ratingCount": "19" }
 }
 ```
@@ -121,8 +121,8 @@ Ranquear para buscas locais de servicos ambientais em Porto Alegre:
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "position": 1, "name": "Home" },
-    { "position": 2, "name": "Servicos" },
-    { "position": 3, "name": "Poda de Arvores" }
+    { "position": 2, "name": "Serviços" },
+    { "position": 3, "name": "Poda de Árvores" }
   ]
 }
 ```
@@ -135,7 +135,7 @@ Ranquear para buscas locais de servicos ambientais em Porto Alegre:
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Preciso de autorizacao para podar uma arvore?",
+      "name": "Preciso de autorização para podar uma árvore?",
       "acceptedAnswer": { "text": "Sim, em Porto Alegre..." }
     }
   ]
@@ -146,28 +146,28 @@ Ranquear para buscas locais de servicos ambientais em Porto Alegre:
 
 ## SEO Local
 
-| Sinal | Implementacao |
+| Sinal | Implementação |
 |-------|--------------|
 | **Meta geo.region** | `BR-RS` |
 | **Meta geo.placename** | `Porto Alegre` |
 | **Schema GeoCoordinates** | -30.0346, -51.2177 |
-| **Schema areaServed** | Porto Alegre e regiao metropolitana |
+| **Schema areaServed** | Porto Alegre e região metropolitana |
 | **City Flip** | 14 cidades rotativas no hero |
-| **NAP Consistency** | Dados identicos em schema, footer, modal, config.ts |
+| **NAP Consistency** | Dados idênticos em schema, footer, modal, config.ts |
 
 ---
 
 ## Cross-linking
 
-Cada servico linka para 5 relacionados via `related-services.ts`:
+Cada serviço linka para 5 relacionados via `related-services.ts`:
 
 ```
-Poda ---------> Corte, Analise Risco, Laudos, Autorizacoes, ART
-Corte --------> Poda, Analise Risco, Autorizacoes, Laudos, RT
-Analise ------> Poda, Corte, Laudos, Monitoramento, Licenciamento
+Poda ---------> Corte, Análise Risco, Laudos, Autorizações, ART
+Corte --------> Poda, Análise Risco, Autorizações, Laudos, RT
+Análise ------> Poda, Corte, Laudos, Monitoramento, Licenciamento
 ```
 
-**Impacto**: Distribui autoridade, aumenta tempo de permanencia, melhora crawlability.
+**Impacto**: Distribui autoridade, aumenta tempo de permanência, melhora crawlability.
 
 ---
 
@@ -175,15 +175,15 @@ Analise ------> Poda, Corte, Laudos, Monitoramento, Licenciamento
 
 ### Core Web Vitals
 
-| Metrica | Estrategia |
+| Métrica | Estratégia |
 |---------|-----------|
 | **LCP** | Preload do hero image, fontes com swap |
 | **FID** | Zero framework JS, listeners passivos |
-| **CLS** | Dimensoes explicitas em imagens, font swap |
+| **CLS** | Dimensões explícitas em imagens, font swap |
 
-### Otimizacoes
+### Otimizações
 
-#### Preload de assets criticos
+#### Preload de assets críticos
 ```html
 <link rel="preload" as="image" href="/images/hero-bg.jpg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -206,7 +206,7 @@ Analise ------> Poda, Corte, Laudos, Monitoramento, Licenciamento
 #### Code splitting MPA
 Cada entry point gera bundle independente. Rollup deduplica modulos compartilhados.
 
-#### Animacoes GPU-accelerated
+#### Animações GPU-accelerated
 Usam `transform` e `opacity` (GPU). Nunca `width`, `height`, `top` (layout reflow).
 
 #### IntersectionObserver
@@ -214,7 +214,7 @@ Em vez de scroll events que bloqueiam main thread.
 
 ### Caching
 
-| Dado | Storage | Duracao |
+| Dado | Storage | Duração |
 |------|---------|---------|
 | Tema | localStorage | Permanente |
 | Cookie consent | localStorage | Permanente |
@@ -225,25 +225,25 @@ Em vez de scroll events que bloqueiam main thread.
 
 ## Acessibilidade (WCAG 2.1)
 
-| Feature | Implementacao |
+| Feature | Implementação |
 |---------|--------------|
 | **Skip link** | Primeiro elemento do DOM, visivel no focus |
 | **Semantic HTML** | `<main>`, `<nav>`, `<header>`, `<footer>`, `<dialog>` |
-| **ARIA labels** | Todos botoes e links interativos |
+| **ARIA labels** | Todos botões e links interativos |
 | **ARIA expanded** | Estado do hamburger menu |
 | **Focus trap** | Tab cycling no menu mobile |
 | **Escape key** | Fecha dialogs e menus |
 | **Contraste** | Tokens ajustados para AA em ambos temas |
 | **Font scaling** | Unidades `rem` em todo o projeto |
-| **Alt text** | Todas as imagens com descricao |
+| **Alt text** | Todas as imagens com descrição |
 
 ---
 
-## Checklist por pagina
+## Checklist por página
 
-Cada uma das 14 paginas implementa:
+Cada uma das 14 páginas implementa:
 
-- [x] Title unico (&lt;60 chars)
+- [x] Title único (&lt;60 chars)
 - [x] Meta description (~155 chars)
 - [x] Canonical URL
 - [x] robots: index, follow
@@ -254,5 +254,5 @@ Cada uma das 14 paginas implementa:
 - [x] Heading hierarchy (h1 > h2 > h3)
 - [x] Links internos (breadcrumb + related)
 - [x] Imagens com alt text
-- [x] Preload de assets criticos
+- [x] Preload de assets críticos
 - [x] Critical CSS inline
