@@ -487,6 +487,69 @@ body {
   margin-top: 1rem;
 }
 
+/* --- Education Section --- */
+.education-section {
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  padding: 0 1.5rem;
+}
+
+.education-section h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--vp-c-text-1);
+}
+
+.education-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--vp-c-border);
+  background: var(--vp-c-bg-soft);
+  transition: all 0.25s ease;
+}
+
+.education-card:hover {
+  border-color: var(--vp-c-brand-1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(91, 110, 225, 0.08);
+}
+
+.education-card__icon {
+  font-size: 2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.education-card__degree {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--vp-c-text-1);
+  margin-bottom: 0.2rem;
+}
+
+.education-card__school {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--vp-c-brand-1);
+  margin-bottom: 0.15rem;
+}
+
+.education-card__field {
+  font-size: 0.85rem;
+  color: var(--vp-c-text-2);
+}
+
+.education-card__period {
+  font-size: 0.8rem;
+  color: var(--vp-c-text-3);
+  margin-top: 0.25rem;
+  font-family: var(--vp-font-family-mono);
+}
+
 /* --- Skills Grid --- */
 .skills-grid {
   max-width: 900px;

@@ -71,6 +71,33 @@ Porto Alegre, RS · Brasil
 </div>
 </div>
 
+<div class="education-section">
+
+## Formacao
+
+<div class="cards-container">
+<div class="education-card">
+<div class="education-card__icon">🎓</div>
+<div class="education-card__info">
+<div class="education-card__degree">Sistemas para Internet</div>
+<div class="education-card__school">UniRitter</div>
+<div class="education-card__field">Tecnologia da Informacao</div>
+<div class="education-card__period">Jan 2025 - Jun 2028</div>
+</div>
+</div>
+
+<div class="education-card">
+<div class="education-card__icon">📜</div>
+<div class="education-card__info">
+<div class="education-card__degree">Ambientes Computacionais e Conectividade</div>
+<div class="education-card__school">Certificacao</div>
+<div class="education-card__field">Infraestrutura e Redes</div>
+</div>
+</div>
+</div>
+
+</div>
+
 <div class="skills-grid">
 
 ## Hard Skills
