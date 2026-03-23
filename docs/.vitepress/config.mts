@@ -5,6 +5,7 @@ export default defineConfig({
   description: 'Portfolio de Desenvolvimento - Projetos, arquitetura e decisoes tecnicas',
   lang: 'pt-BR',
   cleanUrls: true,
+  base: '/dev-portfolio/',
 
   head: [
     ['meta', { name: 'author', content: 'Rafael Silva' }],
