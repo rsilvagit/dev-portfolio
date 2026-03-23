@@ -84,20 +84,14 @@ O modulo mais complexo (289 linhas). Formulario de orcamento com:
 
 ### Sistema de Tabs PF/PJ
 
-```
-+------------------+-------------------+
-|  Pessoa Fisica   |  Pessoa Juridica  |  <-- Tabs com aria-selected
-+------------------+-------------------+
-|  Nome / Razao Social  (label muda)  |
-|  CNPJ (so aparece para PJ)          |
-|  Telefone, Email                     |
-|  CEP  [auto-fill endereco]           |
-|  Endereco, Numero, Bairro            |
-|  Cidade, UF                          |
-|  Servico desejado (dropdown)         |
-|  Descricao                           |
-|  [Solicitar Orcamento via WhatsApp]  |
-+--------------------------------------+
+```mermaid
+block-beta
+    columns 2
+    PF["Pessoa Fisica"]:1 PJ["Pessoa Juridica"]:1
+    FORM["Nome / Razao Social · CNPJ (so PJ)<br/>Telefone · Email · CEP (auto-fill)<br/>Endereco · Numero · Bairro · Cidade · UF<br/>Servico desejado · Descricao<br/>Solicitar Orcamento via WhatsApp"]:2
+
+    style PF fill:#5b6ee1,color:#fff
+    style PJ fill:#7c8cf0,color:#fff
 ```
 
 ### Integracoes API

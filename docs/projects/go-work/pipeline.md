@@ -4,16 +4,15 @@
 
 ## Visao geral
 
-```
- ┌──────────┐     ┌───────────┐     ┌──────────┐     ┌──────────┐     ┌──────────┐
- │ 1. INPUT │────>│ 2. FETCH  │────>│ 3. DEDUP │────>│ 4. FILTER│────>│ 5. OUTPUT│
- │          │     │           │     │          │     │          │     │          │
- │ CLI args │     │ Gupy API  │     │ Por URL  │     │ MaxAge   │     │ Console  │
- │ Env vars │     │ + Cache   │     │ ou chave │     │ Tipo     │     │ Discord  │
- │          │     │ + Anti-ban│     │ composta │     │ Modelo   │     │ Telegram │
- └──────────┘     └───────────┘     └──────────┘     │ Nivel    │     └──────────┘
-                                                     │ Regiao   │
-                                                     └──────────┘
+```mermaid
+graph LR
+    IN["1. INPUT<br/>CLI args · Env vars"] --> FE["2. FETCH<br/>Gupy API · Cache<br/>Anti-ban"]
+    FE --> DD["3. DEDUP<br/>Por URL ou<br/>chave composta"]
+    DD --> FL["4. FILTER<br/>MaxAge · Tipo<br/>Modelo · Nivel · Regiao"]
+    FL --> OUT["5. OUTPUT<br/>Console · Discord<br/>Telegram"]
+
+    style IN fill:#5b6ee1,color:#fff
+    style OUT fill:#7c8cf0,color:#fff
 ```
 
 ## Etapa 1: Entrada
@@ -35,24 +34,21 @@ Multiplos termos separados por virgula: `"golang,python,c#"` -> 3 goroutines par
 
 ### Fluxo por termo de busca (goroutine)
 
-```
-1. Cache hit? ── SIM -> retorna cached jobs
-      │
-     NAO
-      │
-2. Rate limit (delay 2-5s com jitter)
-      │
-3. HTTP GET com headers anti-ban
-      │
-4. Status 429/503? ── Retry com backoff (2s -> 4s -> 8s, max 3x)
-      │
-     OK
-      │
-5. Parse JSON -> []model.Job
-      │
-6. Salva no cache Redis (se disponivel)
-      │
-7. Append em allJobs (com Mutex)
+```mermaid
+graph TD
+    C{"Cache hit?"} -->|SIM| RET["Retorna cached jobs"]
+    C -->|NAO| RL["Rate limit<br/>delay 2-5s com jitter"]
+    RL --> GET["HTTP GET<br/>headers anti-ban"]
+    GET --> ST{"Status 429/503?"}
+    ST -->|SIM| RETRY["Retry com backoff<br/>2s > 4s > 8s, max 3x"]
+    RETRY --> GET
+    ST -->|OK| PARSE["Parse JSON<br/>[]model.Job"]
+    PARSE --> CACHE["Salva no Redis<br/>(se disponivel)"]
+    CACHE --> APPEND["Append em allJobs<br/>sync.Mutex"]
+
+    style C fill:#fbbf24,color:#000
+    style ST fill:#fbbf24,color:#000
+    style RETRY fill:#ef4444,color:#fff
 ```
 
 ### Sistema anti-ban
@@ -87,14 +83,19 @@ Termos diferentes podem retornar a mesma vaga: "golang" e "backend" podem ambos 
 
 ## Etapa 4: Filtragem
 
-```
-filter.Apply()
-  │
-  ├── MaxAge (default: 24h) — PostedAt > 24h? DESCARTA
-  ├── JobType (full-time, estagio...) — FullText contem? PASSA
-  ├── WorkModel (remoto, hibrido...) — FullText contem? PASSA
-  ├── Level (junior, pleno, senior) — FullText contem? PASSA
-  └── Region (Sao Paulo, Remoto...) — FullText contem? PASSA
+```mermaid
+graph TD
+    FA["filter.Apply()"] --> MA{"MaxAge<br/>24h?"}
+    MA -->|"> 24h"| DESC["DESCARTA"]
+    MA -->|OK| JT{"JobType<br/>full-time, estagio..."}
+    JT --> WM{"WorkModel<br/>remoto, hibrido..."}
+    WM --> LV{"Level<br/>junior, pleno, senior"}
+    LV --> RG{"Region<br/>Sao Paulo, Remoto..."}
+    RG --> PASS["Job incluido"]
+
+    style FA fill:#5b6ee1,color:#fff
+    style DESC fill:#ef4444,color:#fff
+    style PASS fill:#52b788,color:#fff
 ```
 
 Filtros suportam multiplos valores: `-modelo "remoto,hibrido"` aceita **qualquer** um (OR logico).

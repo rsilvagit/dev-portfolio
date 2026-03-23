@@ -4,32 +4,18 @@
 
 ## Multi-Page Application (MPA)
 
-```
-                    +-------------------+
-                    |   vite.config.ts  |
-                    |  (14 entry points)|
-                    +--------+----------+
-                             |
-              +--------------+--------------+
-              |                             |
-     +--------v--------+          +--------v--------+
-     |   index.html    |          | servicos/*/     |
-     |   (Homepage)    |          | index.html (x13)|
-     +--------+--------+          +--------+--------+
-              |                             |
-              +-------------+---------------+
-                            |
-                   +--------v--------+
-                   |    src/main.ts  |
-                   |  (Entry point)  |
-                   +--------+--------+
-                            |
-              +-------------+-------------+
-              |             |             |
-     +--------v--+  +------v------+ +---v-----------+
-     | modules/  |  | styles/     | | public/       |
-     | (14 .ts)  |  | (22 .css)  | | (data, imgs)  |
-     +-----------+  +-------------+ +---------------+
+```mermaid
+graph TB
+    VITE["vite.config.ts<br/>14 entry points"] --> HOME["index.html<br/>Homepage"]
+    VITE --> SVC["servicos/*/index.html<br/>13 paginas de servico"]
+    HOME --> MAIN["src/main.ts<br/>Entry point"]
+    SVC --> MAIN
+    MAIN --> MOD["modules/<br/>14 .ts"]
+    MAIN --> STY["styles/<br/>22 .css"]
+    MAIN --> PUB["public/<br/>data, imgs"]
+
+    style VITE fill:#5b6ee1,color:#fff,stroke:#5b6ee1
+    style MAIN fill:#7c8cf0,color:#fff,stroke:#7c8cf0
 ```
 
 ## Roteamento baseado em arquivos
@@ -59,31 +45,17 @@ build: {
 
 ## Fluxo de inicializacao
 
-```
-DOMContentLoaded
-  |
-  v
-injectSharedComponents()  --> Navbar, Footer, Modal, Cookie Banner
-  |
-  v
-initDarkMode()            --> Tema (localStorage + system preference)
-  |
-  v
-initNavbar()              --> Scroll detection, mobile menu, focus trap
-  |
-  v
-await initTestimonials()  --> Fetch JSON, shuffle, render 4 cards
-await initClients()       --> Fetch JSON, shuffle, render 8 logos
-  |
-  v
-initScrollAnimator()      --> IntersectionObserver para animacoes
-initCityFlip()            --> Carrossel de cidades
-injectRelatedServices()   --> Cross-linking entre servicos
-  |
-  v
-initContactModal()        --> Dialog, tabs PF/PJ, CNPJ/CEP lookup
-initFooter()              --> Ano dinamico
-initCookieConsent()       --> Banner LGPD
+```mermaid
+graph TD
+    DOM["DOMContentLoaded"] --> INJ["injectSharedComponents()<br/>Navbar, Footer, Modal, Cookie Banner"]
+    INJ --> DARK["initDarkMode()<br/>localStorage + system preference"]
+    DARK --> NAV["initNavbar()<br/>Scroll detection, mobile menu, focus trap"]
+    NAV --> DATA["await initTestimonials() + initClients()<br/>Fetch JSON, shuffle, render"]
+    DATA --> ANIM["initScrollAnimator() · initCityFlip()<br/>injectRelatedServices()"]
+    ANIM --> UI["initContactModal() · initFooter()<br/>initCookieConsent()"]
+
+    style DOM fill:#5b6ee1,color:#fff,stroke:#5b6ee1
+    style UI fill:#7c8cf0,color:#fff,stroke:#7c8cf0
 ```
 
 ::: warning Ordem importa

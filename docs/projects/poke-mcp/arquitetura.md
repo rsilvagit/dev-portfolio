@@ -104,28 +104,18 @@ async def get_pokemon(name: str) -> str:
 
 ## Fluxo de execucao
 
-```
-Claude/Cursor/Windsurf
-       │
-       │  stdio (stdin/stdout)
-       v
-   FastMCP Server
-       │
-       │  @mcp.tool() dispatch
-       v
-   tools.py (10 tools)
-       │
-       │  fetch() via shared httpx client
-       v
-   PokeAPI v2
-       │
-       │  JSON response
-       v
-   Markdown formatting
-       │
-       │  tool result
-       v
-   LLM response
+```mermaid
+graph TD
+    IDE["Claude / Cursor / Windsurf"] -->|"stdio (stdin/stdout)"| MCP["FastMCP Server"]
+    MCP -->|"@mcp.tool() dispatch"| TOOLS["tools.py<br/>10 tools"]
+    TOOLS -->|"fetch() via httpx"| API["PokeAPI v2"]
+    API -->|"JSON response"| FMT["Markdown formatting"]
+    FMT -->|"tool result"| LLM["LLM response"]
+
+    style IDE fill:#5b6ee1,color:#fff
+    style MCP fill:#7c8cf0,color:#fff
+    style API fill:#ef4444,color:#fff
+    style LLM fill:#52b788,color:#fff
 ```
 
 ## Testes

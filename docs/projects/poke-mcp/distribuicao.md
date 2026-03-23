@@ -113,13 +113,17 @@ O installer faz merge — nao sobrescreve servers MCP ja configurados.
 
 ## Pipeline completo
 
-```
-build.py           install.py              IDE
-   │                   │                    │
-   v                   v                    v
-PyInstaller ──> poke-mcp.exe ──> config.json ──> MCP Server ativo
-   │                                              │
-   │           GitHub Releases                     │  stdio
-   └──────────> Download .exe                      v
-                                              PokeAPI v2
+```mermaid
+graph LR
+    BUILD["build.py"] --> PI["PyInstaller"]
+    PI --> EXE["poke-mcp.exe"]
+    EXE --> GH["GitHub Releases<br/>Download .exe"]
+    INST["install.py"] --> CFG["config.json<br/>IDE config"]
+    EXE --> CFG
+    CFG --> MCP["MCP Server ativo"]
+    MCP -->|stdio| API["PokeAPI v2"]
+
+    style BUILD fill:#5b6ee1,color:#fff
+    style EXE fill:#7c8cf0,color:#fff
+    style API fill:#ef4444,color:#fff
 ```

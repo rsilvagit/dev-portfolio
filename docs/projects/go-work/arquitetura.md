@@ -4,15 +4,20 @@
 
 ## Visao de alto nivel
 
-```
-┌─────────┐    ┌───────────┐    ┌─────────────┐    ┌───────┐    ┌─────────┐    ┌──────────┐
-│ CLI/Env  ├───>│ HTTPClient├───>│ Gupy API    ├───>│ Dedup ├───>│ Filtros ├───>│ Output   │
-└─────────┘    └─────┬─────┘    └──────┬──────┘    └───────┘    └────┬────┘    └──────────┘
-                     │                 │                             │          ├─ Console
-                     │ Anti-ban        │ Cache Redis                 │ MaxAge   ├─ Discord
-                     │ UA Rotation     │ (opcional)                  │ Tipo     └─ Telegram
-                     │ Rate Limit                                    │ Modelo
-                     │ Retry/Backoff                                 │ Nivel
+```mermaid
+graph LR
+    CLI["CLI / Env"] --> HTTP["HTTPClient<br/>Anti-ban · UA Rotation<br/>Rate Limit · Retry"]
+    HTTP --> API["Gupy API<br/>Cache Redis"]
+    API --> DDP["Dedup<br/>Por URL ou chave"]
+    DDP --> FLT["Filtros<br/>MaxAge · Tipo<br/>Modelo · Nivel"]
+    FLT --> CON["Console"]
+    FLT --> DIS["Discord"]
+    FLT --> TEL["Telegram"]
+
+    style CLI fill:#5b6ee1,color:#fff,stroke:#5b6ee1
+    style CON fill:#7c8cf0,color:#fff,stroke:#7c8cf0
+    style DIS fill:#7289da,color:#fff,stroke:#7289da
+    style TEL fill:#0088cc,color:#fff,stroke:#0088cc
 ```
 
 O fluxo e linear e unidirecional: **entrada -> busca -> deduplicacao -> filtragem -> saida**. Simplicidade intencional.
@@ -108,14 +113,19 @@ Metodos auxiliares:
 
 ## Concorrencia
 
-```
-main goroutine
-    │
-    ├── goroutine: Gupy × "golang"
-    ├── goroutine: Gupy × "python"
-    └── goroutine: Gupy × "c#"
-         │
-         └── append(allJobs) ← protegido por sync.Mutex
+```mermaid
+graph TD
+    MAIN["main goroutine"] --> G1["goroutine: Gupy x golang"]
+    MAIN --> G2["goroutine: Gupy x python"]
+    MAIN --> G3["goroutine: Gupy x c#"]
+    G1 --> JOBS["append allJobs<br/>sync.Mutex"]
+    G2 --> JOBS
+    G3 --> JOBS
+    JOBS --> WAIT["wg.Wait()"]
+    WAIT --> DEDUP["Dedup + Filter<br/>single-threaded"]
+
+    style MAIN fill:#5b6ee1,color:#fff
+    style JOBS fill:#ef4444,color:#fff
 ```
 
 - Cada combinacao `scraper x termo` roda em **goroutine dedicada**

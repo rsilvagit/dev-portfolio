@@ -26,17 +26,24 @@ on:
 
 ### Pipeline
 
-```
-┌─────────┐         ┌─────────────────────────────┐
-│  BUILD   │────────>│           RUN               │
-│          │         │                              │
-│ checkout │         │ checkout                     │
-│ setup-go │         │ setup-go                     │
-│ go build │         │ go run ./cmd/go-work         │
-│ go vet   │         │   ├─ env: SEARCH_QUERY       │
-│          │         │   ├─ env: DISCORD_WEBHOOK     │
-│          │         │   └─ env: TELEGRAM_TOKEN      │
-└─────────┘         └──────────────────────────────┘
+```mermaid
+graph LR
+    subgraph BUILD
+        B1["checkout"] --> B2["setup-go"]
+        B2 --> B3["go build"]
+        B3 --> B4["go vet"]
+    end
+
+    subgraph RUN
+        R1["checkout"] --> R2["setup-go"]
+        R2 --> R3["go run ./cmd/go-work"]
+        R3 --> R4["SEARCH_QUERY<br/>DISCORD_WEBHOOK<br/>TELEGRAM_TOKEN"]
+    end
+
+    BUILD --> RUN
+
+    style BUILD fill:transparent,stroke:#5b6ee1,stroke-width:2px
+    style RUN fill:transparent,stroke:#52b788,stroke-width:2px
 ```
 
 ::: tip Tres triggers
@@ -104,12 +111,18 @@ services:
 
 ## Fluxo completo
 
-```
-Developer ──> git push main ──> GitHub Actions ──> Discord/Telegram
-                                     ^
-                                     │
-                                Cron 12h UTC
-                                  (diario)
+```mermaid
+graph LR
+    DEV["Developer"] --> PUSH["git push main"]
+    CRON["Cron 12h UTC<br/>(diario)"] --> GA["GitHub Actions<br/>build > run"]
+    PUSH --> GA
+    GA --> DC["Discord"]
+    GA --> TG["Telegram"]
+
+    style DEV fill:#5b6ee1,color:#fff
+    style CRON fill:#fbbf24,color:#000
+    style DC fill:#7289da,color:#fff
+    style TG fill:#0088cc,color:#fff
 ```
 
 Sem servidor, sem monitoramento, sem custo.
